@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+!objeto/*.pyc
+.env
+*.env
+*.log

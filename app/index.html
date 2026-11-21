@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software para registro de trabajadores</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<aside class="barra"><div class="marca"><b aria-hidden="true">+</b><strong>Software para registro de trabajadores</strong></div><nav id="tabs" aria-label="Navegación principal"><button class="tab-btn active" data-tab="panel"><i aria-hidden="true">▦</i>Panel principal</button><button class="tab-btn " data-tab="directorio"><i aria-hidden="true">☷</i>Directorio</button><button class="tab-btn" data-tab="trabajadores"><i aria-hidden="true">＋</i>Registro de trabajadores</button><button class="tab-btn " data-tab="asistencia"><i aria-hidden="true">◷</i>Asistencia</button><button class="tab-btn " data-tab="documentos"><i aria-hidden="true">▤</i>Documentos de gestión</button><button class="tab-btn " data-tab="inducciones"><i aria-hidden="true">☑</i>Inducciones</button><button class="tab-btn " data-tab="cargos"><i aria-hidden="true">◇</i>Cargos</button><button class="tab-btn " data-tab="sedes"><i aria-hidden="true">⌖</i>Sedes y dispositivos</button><button class="tab-btn " data-tab="reportes"><i aria-hidden="true">▥</i>Reportes</button></nav></aside>
+<main class="container">
+<header><h1 id="titulo">Panel principal</h1><input id="busqueda" type="search" aria-label="Buscar en el directorio" placeholder="Buscar trabajador…"> <button id="cerrar-sesion" class="btn-secundario" type="button">Cerrar sesión</button></header>
+<div id="alerta" role="status"></div>
+<section class="tab-content active" id="tab-panel">
+  <div class="panel-cabecera">
+    <div>
+      <h2>Resumen de personal</h2>
+      <p id="fecha-panel"></p>
+    </div>
+    <div class="panel-acciones">
+      <button type="button" class="btn-panel-sec" data-ir="reportes">Ver reportes</button>
+      <button type="button" class="btn-panel-alta" data-ir="trabajadores">＋ Nuevo trabajador</button>
+    </div>
+  </div>
+  <div id="metricas"></div>
+  <div class="panel-columnas">
+    <section class="panel-tarjeta" aria-labelledby="titulo-altas">
+      <div class="panel-tarjeta-encabezado">
+        <h2 id="titulo-altas">Últimos ingresos</h2>
+        <button type="button" class="panel-enlace" data-ir="directorio">Ver directorio →</button>
+      </div>
+      <div id="altas-panel" class="tabla-scroll"></div>
+    </section>
+    <section class="panel-tarjeta" aria-labelledby="titulo-estados">
+      <div class="panel-tarjeta-encabezado"><h2 id="titulo-estados">Estado laboral</h2></div>
+      <div id="estados-panel"></div>
+      <div class="panel-pendientes" id="pendientes-panel"></div>
+    </section>
+  </div>
+</section>
+<section class="tab-content" id="tab-directorio"><h2>Directorio de trabajadores</h2><div class="tabla-scroll" id="directorio"></div></section>
+<section class="tab-content" id="tab-trabajadores">
+<div class="registro-layout"><div class="central"><ol class="pasos"><li>Datos personales</li><li>Datos de empleo</li><li>Documentos</li></ol>
+<form id="ficha" class="tarjeta" novalidate>
+<div id="editando" hidden></div><div class="paso">
+<h2>Datos personales</h2><div class="con-foto"><div class="campos"><label class="campo"><span>Nombres *</span><input type="text" name="nombres" required maxlength="100" placeholder="Nombres"></label><label class="campo"><span>Apellidos *</span><input type="text" name="apellidos" required maxlength="100" placeholder="Apellidos"></label><label class="campo"><span>Tipo de documento</span><select name="tipo_documento" ><option value="">Seleccionar</option><option value="DNI">DNI</option><option value="Carné de extranjería">Carné de extranjería</option><option value="Pasaporte">Pasaporte</option></select></label><label class="campo"><span>Número de documento</span><input type="text" name="identificacion" maxlength="24"></label><label class="campo"><span>Fecha de nacimiento</span><input type="date" name="nacimiento" ></label><label class="campo"><span>Género</span><select name="genero" ><option value="">Seleccionar</option><option value="Femenino">Femenino</option><option value="Masculino">Masculino</option><option value="Otro">Otro</option><option value="Prefiero no indicar">Prefiero no indicar</option></select></label><label class="campo"><span>Correo electrónico</span><input type="email" name="correo" maxlength="150"></label><label class="campo"><span>Teléfono móvil</span><input type="tel" name="telefono" maxlength="30"></label></div>
+<label class="foto"><b>Foto de perfil</b><span id="previa">＋</span><span>Subir foto</span><small>JPG o PNG · 1 MB</small><input type="file" accept="image/png,image/jpeg" name="foto" aria-label="Subir foto"></label></div>
+<hr><h2>Datos de empleo rápido</h2><div class="campos"><label class="campo"><span>Puesto / cargo *</span><select name="id_cargo" required><option value="">Seleccionar</option></select></label><label class="campo"><span>Departamento</span><input type="text" name="departamento" maxlength="100"></label><label class="campo"><span>Fecha de ingreso *</span><input type="date" name="fecha_registro" required></label><label class="campo"><span>Tipo de contrato</span><select name="contrato" ><option value="">Seleccionar</option><option value="Indeterminado">Indeterminado</option><option value="Plazo fijo">Plazo fijo</option><option value="Prácticas">Prácticas</option><option value="Otro">Otro</option></select></label></div></div>
+<div class="paso" hidden><h2>Datos de empleo</h2><p id="resumen-empleo"></p><div class="campos"><label class="campo"><span>Estado laboral *</span><select name="estado" required><option value="Activo">Activo</option><option value="Inactivo">Inactivo</option><option value="Cesado">Cesado</option></select></label><label class="campo"><span>Supervisor inmediato</span><select name="id_supervisor" ><option value="">Seleccionar</option></select></label></div></div>
+<div class="paso" hidden><h2>Documentos del trabajador</h2><label class="campo">Adjuntar documento (PDF, hasta 3 MB)<input type="file" name="adjunto" accept="application/pdf"></label><p id="archivo-actual"></p><div id="revision"></div></div>
+<div class="pie-form"><button type="button" id="cancelar" class="btn-secondary">Cancelar</button><button type="button" id="atras" class="btn-secondary">Atrás</button><button class="btn-primary" id="avanzar">Siguiente paso →</button></div>
+</form></div><aside class="recientes"><h2>Últimos registros</h2><div id="recientes"></div></aside></div></section>
+        <section class="tab-content" id="tab-cargos">
+            <h2>Catálogo de Cargos</h2>
+            <div data-crud="cargos"></div>
+        </section>
+
+        <section class="tab-content" id="tab-inducciones">
+            <h2>Registro de Inducción y Evaluación de Documentos</h2>
+            <div id="induccion-app"></div>
+        </section>
+
+        <section class="tab-content" id="tab-documentos">
+            <h2>Catálogo de Documentos de Gestión</h2>
+            <div data-crud="documentos"></div>
+        </section>
+
+        <section class="tab-content" id="tab-asistencia">
+            <h2>Control y Registro de Asistencia Biométrica</h2>
+            <div data-crud="asistencia"></div>
+        </section>
+
+        <section class="tab-content" id="tab-sedes">
+            <h2>Sedes y Dispositivos Biométricos</h2>
+            <div data-crud="sedes"></div>
+        </section>
+
+        <section class="tab-content" id="tab-reportes">
+            <h2>Panel de Reportes y Consultas Gerenciales</h2>
+            <div class="filter-bar no-print">
+                <select id="rep-codigo" aria-label="Reporte"></select>
+                <input type="date" id="rep-fecha" title="Fecha del filtro (reportes C3, C4, C5 y C10)">
+                <button class="btn-primary" id="rep-ejecutar">Ejecutar reporte</button>
+                <button class="btn-secondary" id="rep-csv">Exportar CSV</button>
+                <button class="btn-secondary" id="rep-imprimir">Imprimir</button>
+            </div>
+            <p class="nota no-print" id="rep-ayuda"></p>
+            <h3 id="rep-titulo"></h3>
+            <div class="tabla-scroll" id="rep-resultado"></div>
+        </section>
+</main><script src="app.js"></script><script src="registro.js"></script></body></html>

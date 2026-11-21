@@ -1,0 +1,3 @@
+Usuario: evaluador
+Contraseña: RegistroDemo2026!
+Acceso: http://127.0.0.1:8766/

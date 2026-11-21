@@ -1,0 +1,41 @@
+Software para registro de trabajadores
+
+DETENER UNA VERSIÓN ANTERIOR
+Si tenías abierta la primera versión con Docker, ejecuta Detener.cmd en la
+carpeta antigua con Docker Desktop abierto. Si abriste la edición de conexión
+directa a MySQL, pulsa Ctrl+C en su ventana de comandos. Ambas acciones
+conservan los registros. Deja Docker Desktop abierto para iniciar esta edición.
+
+ABRIR EN WINDOWS DE 64 BITS
+1. Instala y abre Docker Desktop con contenedores Linux.
+2. Extrae completa la carpeta RegistroDockerMySQL.
+3. Abre el acceso directo Software para registro de trabajadores.lnk.
+   También puedes abrir el .cmd del mismo nombre o RegistroTrabajadores.exe.
+   Espera a que se abra el navegador. La primera vez se necesita Internet para descargar MySQL 8.4
+   y preparar la aplicación. El programa se abre en http://127.0.0.1:8766.
+
+ACCESO DE PRUEBA
+Usuario: evaluador
+Contraseña: RegistroDemo2026!
+Usa Cerrar sesión al terminar. Si el sistema indica demasiados intentos,
+espera 30 segundos y verifica las credenciales antes de volver a intentar.
+
+Docker crea la base registro_trabajadores, carga los datos de ejemplo y
+conecta el programa. El iniciador genera la contraseña automáticamente.
+Puedes detener esta edición con su archivo Detener.cmd. Los datos se guardan
+en un volumen propio de Docker y se conservan al reiniciar. La aplicación
+alcanza MySQL por la red interna de Docker. Se publica únicamente la interfaz
+local del programa en el equipo. Las bases anteriores requieren una importación
+si quieres usar sus datos aquí.
+
+PRUEBA
+Con esta edición abierta, ejecuta Verificar.cmd. Comprueba altas, cambios,
+bajas, un trigger de validación, auditoría y los 12 reportes. Los cambios de
+prueba se revierten al terminar. Los contadores de ID pueden avanzar.
+Para ver asistencia de ejemplo, consulta la fecha 19/10/2026.
+
+CONTENIDO
+app/     Código fuente sin frameworks y Dockerfile.
+sql/     Esquema, datos de ejemplo, procedimientos, triggers y consultas.
+objeto/  Código objeto Python 3.12.
+inicio/  Código fuente y compilación del iniciador para Windows.

@@ -1,0 +1,37 @@
+name: registro-trabajadores-mysql
+services:
+  base:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: registro_trabajadores
+      MYSQL_USER: registro
+      MYSQL_PASSWORD: ${REGISTRO_CLAVE:?Ejecute el iniciador}
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_ROOT_HOST: localhost
+    volumes:
+      - personal_mysql:/var/lib/mysql
+      - ./sql/01_crear_bd.sql:/docker-entrypoint-initdb.d/01.sql:ro
+      - ./sql/02_insertar_datos.sql:/docker-entrypoint-initdb.d/02.sql:ro
+      - ./sql/04_procedimientos.sql:/docker-entrypoint-initdb.d/04.sql:ro
+      - ./sql/05_triggers.sql:/docker-entrypoint-initdb.d/05.sql:ro
+      - ./sql/06_procedimientos_complementarios.sql:/docker-entrypoint-initdb.d/06.sql:ro
+      - ./sql/07_instalacion.sql:/docker-entrypoint-initdb.d/07.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "MYSQL_PWD=\"$$MYSQL_PASSWORD\" mysql --protocol=TCP -h 127.0.0.1 -u registro --batch --skip-column-names registro_trabajadores -e 'SELECT version FROM instalacion_registro WHERE version=1' | grep -qx 1"]
+      interval: 4s
+      timeout: 4s
+      retries: 30
+      start_period: 45s
+  aplicacion:
+    build: ./app
+    environment:
+      REGISTRO_CLAVE: ${REGISTRO_CLAVE:?Ejecute el iniciador}
+      REGISTRO_LOGIN_USUARIO: ${REGISTRO_LOGIN_USUARIO:-evaluador}
+      REGISTRO_LOGIN_CLAVE: "${REGISTRO_LOGIN_CLAVE:-RegistroDemo2026!}"
+    depends_on:
+      base:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8766:8000"
+volumes:
+  personal_mysql:

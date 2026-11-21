@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iniciar sesión | Software para registro de trabajadores</title>
+  <link rel="stylesheet" href="/login.css">
+  <script src="/login.js" defer></script>
+</head>
+<body>
+  <main class="acceso">
+    <span class="simbolo" aria-hidden="true">+</span>
+    <h1>Software para registro de trabajadores</h1>
+    <form id="login" method="post" action="/api/login">
+      <h2>Iniciar sesión</h2>
+      <label for="usuario">Usuario</label>
+      <input id="usuario" name="usuario" autocomplete="username" maxlength="100" required>
+      <label for="clave">Contraseña</label>
+      <input id="clave" name="clave" type="password" autocomplete="current-password" maxlength="256" required>
+      <button id="entrar" type="submit">Ingresar</button>
+      <p id="mensaje" role="alert" hidden></p>
+      <noscript>Activa JavaScript para iniciar sesión.</noscript>
+    </form>
+  </main>
+</body>
+</html>
